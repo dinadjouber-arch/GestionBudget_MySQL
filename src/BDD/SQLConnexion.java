@@ -14,7 +14,7 @@ public class SQLConnexion {
     private static final String user="root";
     private static final String password="20062006D!";
 
-    public static void connexion(String[] args) {
+    public static void connexion() {
 
         Connection con=null;
         Statement stat=null;
