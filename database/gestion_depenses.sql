@@ -55,3 +55,10 @@ CREATE TABLE revenu (
     date_revenu DATE NOT NULL,
     description VARCHAR(255)
 );
+
+insert into categorie values
+(1,"nourriture","dejeuner"),
+(2,"transport","voyage a la plage");
+commit
+
+
