@@ -1,65 +1,276 @@
 package display;
 
+import Requetes.MoyenPaiementRequetes;
+import model.MoyenPaiement;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class PaiementPanel extends JPanel {
 
+    private JTextField txtId;
+    private JTextField txtNom;
+
+    private JButton btnAjouter;
+    private JButton btnModifier;
+    private JButton btnSupprimer;
+    private JButton btnActualiser;
+    private JButton btnVider;
+
     private JTable table;
+    private DefaultTableModel modele;
+
+    private MoyenPaiementRequetes paiementRequetes;
 
     public PaiementPanel() {
 
-        setLayout(new BorderLayout(20, 20));
-        setBorder(new EmptyBorder(20, 20, 20, 20));
+        paiementRequetes = new MoyenPaiementRequetes();
 
+        setLayout(new BorderLayout(10,10));
 
-        // Titre
+        // ==========================
+        // Formulaire
+        // ==========================
 
+        JPanel formulaire = new JPanel(new GridBagLayout());
+        formulaire.setBorder(BorderFactory.createTitledBorder("Moyen de paiement"));
 
-        JLabel titre = new JLabel("Gestion des moyens de paiement");
-        titre.setHorizontalAlignment(SwingConstants.CENTER);
-        titre.setFont(new Font("Arial", Font.BOLD, 28));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        add(titre, BorderLayout.NORTH);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formulaire.add(new JLabel("ID :"), gbc);
 
+        gbc.gridx = 1;
+        txtId = new JTextField(20);
+        txtId.setEditable(false);
+        formulaire.add(txtId, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formulaire.add(new JLabel("Nom :"), gbc);
+
+        gbc.gridx = 1;
+        txtNom = new JTextField(20);
+        formulaire.add(txtNom, gbc);
+
+        add(formulaire, BorderLayout.NORTH);
+
+        // ==========================
         // Tableau
+        // ==========================
 
+        modele = new DefaultTableModel();
 
-        String[] colonnes = {
-                "ID",
-                "Nom",
-                "Description"
-        };
+        modele.addColumn("ID");
+        modele.addColumn("Nom");
 
-        Object[][] donnees = {
-                {1, "Carte bancaire", "Paiement par carte"},
-                {2, "Espèces", "Paiement en liquide"},
-                {3, "Virement", "Paiement par virement bancaire"},
-                {4, "Chèque", "Paiement par chèque"}
-        };
+        table = new JTable(modele);
 
-        table = new JTable(donnees, colonnes);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        add(scrollPane, BorderLayout.CENTER);
-
-
+        // ==========================
         // Boutons
+        // ==========================
 
+        JPanel panelBoutons = new JPanel(new FlowLayout());
 
-        JPanel panelBoutons = new JPanel();
-
-        JButton btnAjouter = new JButton("Ajouter");
-        JButton btnModifier = new JButton("Modifier");
-        JButton btnSupprimer = new JButton("Supprimer");
+        btnAjouter = new JButton("Ajouter");
+        btnModifier = new JButton("Modifier");
+        btnSupprimer = new JButton("Supprimer");
+        btnActualiser = new JButton("Actualiser");
+        btnVider = new JButton("Vider");
 
         panelBoutons.add(btnAjouter);
         panelBoutons.add(btnModifier);
         panelBoutons.add(btnSupprimer);
+        panelBoutons.add(btnActualiser);
+        panelBoutons.add(btnVider);
 
         add(panelBoutons, BorderLayout.SOUTH);
+
+        chargerTable();
+
+        // ==========================
+        // ActionListeners
+        // ==========================
+
+        btnAjouter.addActionListener(e -> ajouterPaiement());
+
+        btnModifier.addActionListener(e -> modifierPaiement());
+
+        btnSupprimer.addActionListener(e -> supprimerPaiement());
+
+        btnActualiser.addActionListener(e -> chargerTable());
+
+        btnVider.addActionListener(e -> viderChamps());
+
+        table.getSelectionModel().addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+
+                int ligne = table.getSelectedRow();
+
+                txtId.setText(modele.getValueAt(ligne, 0).toString());
+                txtNom.setText(modele.getValueAt(ligne, 1).toString());
+
+            }
+
+        });
+
     }
+
+    // ==========================
+    // Vider les champs
+    // ==========================
+
+    private void viderChamps() {
+
+        txtId.setText("");
+        txtNom.setText("");
+
+        table.clearSelection();
+
+    }
+
+    // ==========================
+    // Charger le tableau
+    // ==========================
+
+    private void chargerTable() {
+
+        modele.setRowCount(0);
+
+        List<MoyenPaiement> liste = paiementRequetes.getTousLesMoyensPaiement();
+
+        for (MoyenPaiement paiement : liste) {
+
+            modele.addRow(new Object[]{
+                    paiement.getIdPaiement(),
+                    paiement.getNom()
+            });
+
+        }
+
+    }
+
+    // ==========================
+    // Ajouter
+    // ==========================
+
+    private void ajouterPaiement() {
+
+        if (txtNom.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Veuillez saisir un nom.");
+
+            return;
+        }
+
+        MoyenPaiement paiement = new MoyenPaiement();
+
+        paiement.setNom(txtNom.getText().trim());
+
+        if (paiementRequetes.ajouterMoyenPaiement(paiement)) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Moyen de paiement ajouté avec succès.");
+
+            chargerTable();
+            viderChamps();
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "Erreur lors de l'ajout.");
+
+        }
+
+    }
+
+    // ==========================
+    // Modifier
+    // ==========================
+
+    private void modifierPaiement() {
+
+        if (txtId.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Sélectionnez un moyen de paiement.");
+
+            return;
+        }
+
+        MoyenPaiement paiement = new MoyenPaiement();
+
+        paiement.setIdPaiement(Integer.parseInt(txtId.getText()));
+        paiement.setNom(txtNom.getText().trim());
+
+        if (paiementRequetes.modifierMoyenPaiement(paiement)) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Moyen de paiement modifié avec succès.");
+
+            chargerTable();
+            viderChamps();
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "Erreur lors de la modification.");
+
+        }
+
+    }
+
+    // ==========================
+    // Supprimer
+    // ==========================
+
+    private void supprimerPaiement() {
+
+        if (txtId.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Sélectionnez un moyen de paiement.");
+
+            return;
+        }
+
+        int choix = JOptionPane.showConfirmDialog(
+                this,
+                "Voulez-vous vraiment supprimer ce moyen de paiement ?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (choix == JOptionPane.YES_OPTION) {
+
+            int id = Integer.parseInt(txtId.getText());
+
+            if (paiementRequetes.supprimerMoyenPaiement(id)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Moyen de paiement supprimé avec succès.");
+
+                chargerTable();
+                viderChamps();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "Erreur lors de la suppression.");
+
+            }
+
+        }
+
+    }
+
 }

@@ -37,15 +37,9 @@ CREATE TABLE depense (
 
 CREATE TABLE budget (
     id_budget INT AUTO_INCREMENT PRIMARY KEY,
-    montant_max DECIMAL(10,2) NOT NULL,
+    montant DECIMAL(10,2) NOT NULL,
     mois INT NOT NULL,
-    annee INT NOT NULL,
-    id_categorie INT NOT NULL,
-
-    FOREIGN KEY (id_categorie)
-        REFERENCES categorie(id_categorie)
-        ON DELETE RESTRICT
-        ON UPDATE CASCADE
+    annee INT NOT NULL
 );
 
 
@@ -56,9 +50,5 @@ CREATE TABLE revenu (
     description VARCHAR(255)
 );
 
-insert into categorie values
-(1,"nourriture","dejeuner"),
-(2,"transport","voyage a la plage");
-commit
 
 

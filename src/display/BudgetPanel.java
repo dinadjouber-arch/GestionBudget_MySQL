@@ -1,67 +1,283 @@
 package display;
 
+import Requetes.BudgetRequetes;
+import model.Budget;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class BudgetPanel extends JPanel {
 
+    private JTextField txtId;
+    private JTextField txtMontant;
+    private JTextField txtMois;
+    private JTextField txtAnnee;
+
+    private JButton btnAjouter;
+    private JButton btnModifier;
+    private JButton btnSupprimer;
+    private JButton btnActualiser;
+    private JButton btnVider;
+
     private JTable table;
+    private DefaultTableModel modele;
+
+    private BudgetRequetes budgetRequetes;
 
     public BudgetPanel() {
 
-        setLayout(new BorderLayout(20, 20));
-        setBorder(new EmptyBorder(20, 20, 20, 20));
+        budgetRequetes = new BudgetRequetes();
 
+        setLayout(new BorderLayout(10,10));
 
-        // Titre
+        JPanel formulaire = new JPanel(new GridLayout(4,2,10,10));
 
+        formulaire.setBorder(BorderFactory.createTitledBorder("Budget"));
 
-        JLabel titre = new JLabel("Gestion des budgets");
-        titre.setHorizontalAlignment(SwingConstants.CENTER);
-        titre.setFont(new Font("Arial", Font.BOLD, 28));
+        formulaire.add(new JLabel("ID"));
+        txtId = new JTextField();
+        txtId.setEditable(false);
+        formulaire.add(txtId);
 
-        add(titre, BorderLayout.NORTH);
+        formulaire.add(new JLabel("Montant"));
+        txtMontant = new JTextField();
+        formulaire.add(txtMontant);
 
+        formulaire.add(new JLabel("Mois"));
+        txtMois = new JTextField();
+        formulaire.add(txtMois);
 
-        // Tableau
+        formulaire.add(new JLabel("Année"));
+        txtAnnee = new JTextField();
+        formulaire.add(txtAnnee);
 
+        add(formulaire,BorderLayout.NORTH);
 
-        String[] colonnes = {
-                "ID",
-                "Catégorie",
-                "Budget mensuel",
-                "Dépensé",
-                "Restant"
-        };
+        modele = new DefaultTableModel();
 
-        Object[][] donnees = {
-                {1, "Alimentation", "500.00 €", "320.00 €", "180.00 €"},
-                {2, "Transport", "150.00 €", "80.00 €", "70.00 €"},
-                {3, "Loisirs", "200.00 €", "120.00 €", "80.00 €"},
-                {4, "Santé", "100.00 €", "40.00 €", "60.00 €"}
-        };
+        modele.addColumn("ID");
+        modele.addColumn("Montant");
+        modele.addColumn("Mois");
+        modele.addColumn("Année");
 
-        table = new JTable(donnees, colonnes);
+        table = new JTable(modele);
 
         JScrollPane scrollPane = new JScrollPane(table);
 
-        add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane,BorderLayout.CENTER);
 
+        JPanel panelBoutons = new JPanel(new FlowLayout());
 
-        // Boutons
-
-
-        JPanel panelBoutons = new JPanel();
-
-        JButton btnAjouter = new JButton("Ajouter");
-        JButton btnModifier = new JButton("Modifier");
-        JButton btnSupprimer = new JButton("Supprimer");
+        btnAjouter = new JButton("Ajouter");
+        btnModifier = new JButton("Modifier");
+        btnSupprimer = new JButton("Supprimer");
+        btnActualiser = new JButton("Actualiser");
+        btnVider = new JButton("Vider");
 
         panelBoutons.add(btnAjouter);
         panelBoutons.add(btnModifier);
         panelBoutons.add(btnSupprimer);
+        panelBoutons.add(btnActualiser);
+        panelBoutons.add(btnVider);
 
-        add(panelBoutons, BorderLayout.SOUTH);
+        add(panelBoutons,BorderLayout.SOUTH);
+
+        chargerTable();
+
+        // ==========================
+        // ActionListeners
+        // ==========================
+
+        btnAjouter.addActionListener(e -> ajouterBudget());
+
+        btnModifier.addActionListener(e -> modifierBudget());
+
+        btnSupprimer.addActionListener(e -> supprimerBudget());
+
+        btnActualiser.addActionListener(e -> chargerTable());
+
+        btnVider.addActionListener(e -> viderChamps());
+
+        table.getSelectionModel().addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+
+                int ligne = table.getSelectedRow();
+
+                txtId.setText(modele.getValueAt(ligne, 0).toString());
+                txtMontant.setText(modele.getValueAt(ligne, 1).toString());
+                txtMois.setText(modele.getValueAt(ligne, 2).toString());
+                txtAnnee.setText(modele.getValueAt(ligne, 3).toString());
+
+            }
+
+        });
+
     }
+
+    // ==========================
+    // Vider les champs
+    // ==========================
+
+    private void viderChamps() {
+
+        txtId.setText("");
+        txtMontant.setText("");
+        txtMois.setText("");
+        txtAnnee.setText("");
+
+        table.clearSelection();
+
+    }
+
+    // ==========================
+    // Charger le tableau
+    // ==========================
+
+    private void chargerTable() {
+
+        modele.setRowCount(0);
+
+        List<Budget> liste = budgetRequetes.getTousLesBudgets();
+
+        for (Budget budget : liste) {
+
+            modele.addRow(new Object[]{
+                    budget.getIdBudget(),
+                    budget.getMontant(),
+                    budget.getMois(),
+                    budget.getAnnee()
+            });
+
+        }
+
+    }
+
+    // ==========================
+    // Ajouter
+    // ==========================
+
+    private void ajouterBudget() {
+
+        try {
+
+            Budget budget = new Budget();
+
+            budget.setMontant(Double.parseDouble(txtMontant.getText()));
+            budget.setMois(Integer.parseInt(txtMois.getText()));
+            budget.setAnnee(Integer.parseInt(txtAnnee.getText()));
+
+            if (budgetRequetes.ajouterBudget(budget)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Budget ajouté avec succès.");
+
+                chargerTable();
+                viderChamps();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "Erreur lors de l'ajout.");
+
+            }
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Veuillez saisir des valeurs numériques valides.");
+
+        }
+    }
+
+    // ==========================
+    // Modifier
+    // ==========================
+
+    private void modifierBudget() {
+
+        if (txtId.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Sélectionnez un budget.");
+
+            return;
+        }
+
+        try {
+
+            Budget budget = new Budget();
+
+            budget.setIdBudget(Integer.parseInt(txtId.getText()));
+            budget.setMontant(Double.parseDouble(txtMontant.getText()));
+            budget.setMois(Integer.parseInt(txtMois.getText()));
+            budget.setAnnee(Integer.parseInt(txtAnnee.getText()));
+
+            if (budgetRequetes.modifierBudget(budget)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Budget modifié avec succès.");
+
+                chargerTable();
+                viderChamps();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "Erreur lors de la modification.");
+
+            }
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Veuillez saisir des valeurs numériques valides.");
+
+        }
+    }
+
+    // ==========================
+    // Supprimer
+    // ==========================
+
+    private void supprimerBudget() {
+
+        if (txtId.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Sélectionnez un budget.");
+
+            return;
+        }
+
+        int choix = JOptionPane.showConfirmDialog(
+                this,
+                "Voulez-vous vraiment supprimer ce budget ?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (choix == JOptionPane.YES_OPTION) {
+
+            int id = Integer.parseInt(txtId.getText());
+
+            if (budgetRequetes.supprimerBudget(id)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Budget supprimé.");
+
+                chargerTable();
+                viderChamps();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "Erreur lors de la suppression.");
+
+            }
+        }
+    }
+
 }

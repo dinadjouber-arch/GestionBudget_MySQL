@@ -1,9 +1,6 @@
 package BDD;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 
 public class SQLConnexion {
@@ -13,6 +10,13 @@ public class SQLConnexion {
     private static final String URL="jdbc:mysql://localhost:3306/gestion_depenses";
     private static final String user="root";
     private static final String password="20062006D!";
+
+
+
+
+    public static Connection getConnexion() throws SQLException {
+        return DriverManager.getConnection(URL, user, password);
+    }
 
     public static void connexion() {
 
@@ -27,13 +31,13 @@ public class SQLConnexion {
             String sql="SELECT * FROM categorie;";
             ResultSet result=stat.executeQuery(sql);
 
-            while (result.next())
+           /* while (result.next())
             {
                 int id= result.getInt("id_categorie");
                 String nom= result.getString("nom");
                 System.out.println("ID : "+id+"  nom : "+nom);
 
-            }} catch (Exception ex) {ex.printStackTrace();}
+            }*/} catch (Exception ex) {ex.printStackTrace();}
         finally
         {
             try{

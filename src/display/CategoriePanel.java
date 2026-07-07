@@ -1,66 +1,286 @@
 package display;
 
+import Requetes.CategorieRequetes;
+import model.Categorie;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class CategoriePanel extends JPanel {
 
+    private JTextField txtId;
+    private JTextField txtNom;
+    private JTextArea txtDescription;
+
+    private JButton btnAjouter;
+    private JButton btnModifier;
+    private JButton btnSupprimer;
+    private JButton btnActualiser;
+    private JButton btnVider;
+
     private JTable table;
+    private DefaultTableModel modele;
+
+    private CategorieRequetes categorieRequetes;
 
     public CategoriePanel() {
 
-        setLayout(new BorderLayout(20, 20));
-        setBorder(new EmptyBorder(20, 20, 20, 20));
+        categorieRequetes = new CategorieRequetes();
 
+        setLayout(new BorderLayout(10,10));
 
-        // Titre
+        // ==========================
+        // Formulaire
+        // ==========================
 
+        JPanel formulaire = new JPanel(new GridBagLayout());
+        formulaire.setBorder(BorderFactory.createTitledBorder("Catégorie"));
 
-        JLabel titre = new JLabel("Gestion des catégories");
-        titre.setHorizontalAlignment(SwingConstants.CENTER);
-        titre.setFont(new Font("Arial", Font.BOLD, 28));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        add(titre, BorderLayout.NORTH);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formulaire.add(new JLabel("ID :"), gbc);
 
+        gbc.gridx = 1;
+        txtId = new JTextField(20);
+        txtId.setEditable(false);
+        formulaire.add(txtId, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formulaire.add(new JLabel("Nom :"), gbc);
+
+        gbc.gridx = 1;
+        txtNom = new JTextField(20);
+        formulaire.add(txtNom, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        formulaire.add(new JLabel("Description :"), gbc);
+
+        gbc.gridx = 1;
+        txtDescription = new JTextArea(4,20);
+        txtDescription.setLineWrap(true);
+        txtDescription.setWrapStyleWord(true);
+
+        formulaire.add(new JScrollPane(txtDescription), gbc);
+
+        add(formulaire, BorderLayout.NORTH);
+
+        // ==========================
         // Tableau
+        // ==========================
 
+        modele = new DefaultTableModel();
 
-        String[] colonnes = {
-                "ID",
-                "Nom de la catégorie",
-                "Description"
-        };
+        modele.addColumn("ID");
+        modele.addColumn("Nom");
+        modele.addColumn("Description");
 
-        Object[][] donnees = {
-                {1, "Alimentation", "Courses et restaurants"},
-                {2, "Transport", "Bus, métro, essence"},
-                {3, "Loisirs", "Cinéma, jeux, sorties"},
-                {4, "Santé", "Médecin, pharmacie"},
-                {5, "Logement", "Loyer et charges"}
-        };
+        table = new JTable(modele);
 
-        table = new JTable(donnees, colonnes);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        add(scrollPane, BorderLayout.CENTER);
-
-
+        // ==========================
         // Boutons
+        // ==========================
 
+        JPanel panelBoutons = new JPanel(new FlowLayout());
 
-        JPanel panelBoutons = new JPanel();
-
-        JButton btnAjouter = new JButton("Ajouter");
-        JButton btnModifier = new JButton("Modifier");
-        JButton btnSupprimer = new JButton("Supprimer");
+        btnAjouter = new JButton("Ajouter");
+        btnModifier = new JButton("Modifier");
+        btnSupprimer = new JButton("Supprimer");
+        btnActualiser = new JButton("Actualiser");
+        btnVider = new JButton("Vider");
 
         panelBoutons.add(btnAjouter);
         panelBoutons.add(btnModifier);
         panelBoutons.add(btnSupprimer);
+        panelBoutons.add(btnActualiser);
+        panelBoutons.add(btnVider);
 
         add(panelBoutons, BorderLayout.SOUTH);
+
+        chargerTable();
+
+        // ==========================
+        // ActionListeners
+        // ==========================
+
+        btnAjouter.addActionListener(e -> ajouterCategorie());
+
+        btnModifier.addActionListener(e -> modifierCategorie());
+
+        btnSupprimer.addActionListener(e -> supprimerCategorie());
+
+        btnActualiser.addActionListener(e -> chargerTable());
+
+        btnVider.addActionListener(e -> viderChamps());
+
+        table.getSelectionModel().addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+
+                int ligne = table.getSelectedRow();
+
+                txtId.setText(modele.getValueAt(ligne, 0).toString());
+                txtNom.setText(modele.getValueAt(ligne, 1).toString());
+                txtDescription.setText(modele.getValueAt(ligne, 2).toString());
+
+            }
+
+        });
+
+    }
+
+    // ==========================
+    // Vider les champs
+    // ==========================
+
+    private void viderChamps() {
+
+        txtId.setText("");
+        txtNom.setText("");
+        txtDescription.setText("");
+
+        table.clearSelection();
+
+    }
+
+    // ==========================
+    // Charger le tableau
+    // ==========================
+
+    private void chargerTable() {
+
+        modele.setRowCount(0);
+
+        List<Categorie> liste = categorieRequetes.getToutesLesCategories();
+
+        for (Categorie categorie : liste) {
+
+            modele.addRow(new Object[] {
+                    categorie.getIdCategorie(),
+                    categorie.getNom(),
+                    categorie.getDescription()
+            });
+
+        }
+
+    }
+
+    // ==========================
+    // Ajouter une catégorie
+    // ==========================
+
+    private void ajouterCategorie() {
+
+        if (txtNom.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Veuillez saisir un nom.");
+
+            return;
+        }
+
+        Categorie categorie = new Categorie();
+
+        categorie.setNom(txtNom.getText().trim());
+        categorie.setDescription(txtDescription.getText().trim());
+
+        if (categorieRequetes.ajouterCategorie(categorie)) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Catégorie ajoutée avec succès.");
+
+            chargerTable();
+            viderChamps();
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "Erreur lors de l'ajout.");
+        }
+    }
+
+    // ==========================
+    // Modifier une catégorie
+    // ==========================
+
+    private void modifierCategorie() {
+
+        if (txtId.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Sélectionnez une catégorie.");
+
+            return;
+        }
+
+        Categorie categorie = new Categorie();
+
+        categorie.setIdCategorie(Integer.parseInt(txtId.getText()));
+        categorie.setNom(txtNom.getText().trim());
+        categorie.setDescription(txtDescription.getText().trim());
+
+        if (categorieRequetes.modifierCategorie(categorie)) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Catégorie modifiée avec succès.");
+
+            chargerTable();
+            viderChamps();
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "Erreur lors de la modification.");
+        }
+    }
+
+    // ==========================
+    // Supprimer une catégorie
+    // ==========================
+
+    private void supprimerCategorie() {
+
+        if (txtId.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Sélectionnez une catégorie.");
+
+            return;
+        }
+
+        int choix = JOptionPane.showConfirmDialog(
+                this,
+                "Voulez-vous vraiment supprimer cette catégorie ?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (choix == JOptionPane.YES_OPTION) {
+
+            int id = Integer.parseInt(txtId.getText());
+
+            if (categorieRequetes.supprimerCategorie(id)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Catégorie supprimée avec succès.");
+
+                chargerTable();
+                viderChamps();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "Erreur lors de la suppression.");
+            }
+        }
     }
 }

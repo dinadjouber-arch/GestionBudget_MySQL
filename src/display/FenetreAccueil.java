@@ -5,111 +5,91 @@ import java.awt.*;
 
 public class FenetreAccueil extends JFrame {
 
+    private CardLayout cardLayout;
+    private JPanel panelCentre;
+
     public FenetreAccueil() {
 
-        setTitle("Gestion des dépenses");
+        setTitle("Gestion des dépenses personnelles");
         setSize(1000, 650);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-
+        // ==========================
         // Barre du haut
-
+        // ==========================
 
         JPanel topPanel = new JPanel();
-        topPanel.setPreferredSize(new Dimension(1000, 70));
 
-        JLabel title = new JLabel("Gestion des dépenses personnelles");
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        JLabel titre = new JLabel("Gestion des dépenses personnelles");
+        titre.setFont(new Font("Arial", Font.BOLD, 24));
 
-        topPanel.add(title);
+        topPanel.add(titre);
 
-
+        // ==========================
         // Menu de gauche
-
+        // ==========================
 
         JPanel menuPanel = new JPanel();
-        menuPanel.setPreferredSize(new Dimension(220, 650));
-        menuPanel.setLayout(new GridLayout(7, 1, 10, 10));
+        menuPanel.setLayout(new GridLayout(6, 1, 10, 10));
+        menuPanel.setPreferredSize(new Dimension(220, 0));
 
-        JButton accueil = new JButton("🏠 Accueil");
-        JButton depenses = new JButton("💸 Dépenses");
-        JButton categories = new JButton("📂 Catégories");
-        JButton paiements = new JButton("💳 Paiements");
-        JButton budgets = new JButton("📈 Budgets");
-        JButton revenus = new JButton("💰 Revenus");
+        JButton btnAccueil = new JButton("🏠 Accueil");
+        JButton btnDepenses = new JButton("💸 Dépenses");
+        JButton btnCategories = new JButton("📂 Catégories");
+        JButton btnPaiements = new JButton("💳 Paiements");
+        JButton btnBudget = new JButton("📈 Budget");
+        JButton btnRevenus = new JButton("💰 Revenus");
 
-        menuPanel.add(accueil);
-        menuPanel.add(depenses);
-        menuPanel.add(categories);
-        menuPanel.add(paiements);
-        menuPanel.add(budgets);
-        menuPanel.add(revenus);
+        menuPanel.add(btnAccueil);
+        menuPanel.add(btnDepenses);
+        menuPanel.add(btnCategories);
+        menuPanel.add(btnPaiements);
+        menuPanel.add(btnBudget);
+        menuPanel.add(btnRevenus);
 
+        // ==========================
+        // Zone centrale
+        // ==========================
 
-        // Zone centrale (CardLayout)
+        cardLayout = new CardLayout();
+        panelCentre = new JPanel(cardLayout);
 
-
-        CardLayout cardLayout = new CardLayout();
-        JPanel panelCentre = new JPanel(cardLayout);
-
-        // Page d'accueil
         panelCentre.add(new AccueilPanel(), "Accueil");
-
-        // Pages temporaires
         panelCentre.add(new DepensePanel(), "Depenses");
         panelCentre.add(new CategoriePanel(), "Categories");
         panelCentre.add(new PaiementPanel(), "Paiements");
-        panelCentre.add(new BudgetPanel(), "Budgets");
+        panelCentre.add(new BudgetPanel(), "Budget");
         panelCentre.add(new RevenuPanel(), "Revenus");
-
-
-        // Ajout des composants
-
 
         add(topPanel, BorderLayout.NORTH);
         add(menuPanel, BorderLayout.WEST);
         add(panelCentre, BorderLayout.CENTER);
 
-
+        // ==========================
         // Navigation
+        // ==========================
 
+        btnAccueil.addActionListener(e -> afficherPanel("Accueil"));
 
-        accueil.addActionListener(e ->
-                cardLayout.show(panelCentre, "Accueil"));
+        btnDepenses.addActionListener(e -> afficherPanel("Depenses"));
 
-        depenses.addActionListener(e ->
-                cardLayout.show(panelCentre, "Depenses"));
+        btnCategories.addActionListener(e -> afficherPanel("Categories"));
 
-        categories.addActionListener(e ->
-                cardLayout.show(panelCentre, "Categories"));
+        btnPaiements.addActionListener(e -> afficherPanel("Paiements"));
 
-        paiements.addActionListener(e ->
-                cardLayout.show(panelCentre, "Paiements"));
+        btnBudget.addActionListener(e -> afficherPanel("Budget"));
 
-        budgets.addActionListener(e ->
-                cardLayout.show(panelCentre, "Budgets"));
+        btnRevenus.addActionListener(e -> afficherPanel("Revenus"));
 
-        revenus.addActionListener(e ->
-                cardLayout.show(panelCentre, "Revenus"));
-
-        // Afficher l'accueil au démarrage
-        cardLayout.show(panelCentre, "Accueil");
+        // Affiche l'accueil au démarrage
+        afficherPanel("Accueil");
 
         setVisible(true);
     }
 
-    // Méthode qui crée un panel provisoire
-    private JPanel creerPanel(String texte) {
-
-        JPanel panel = new JPanel(new GridBagLayout());
-
-        JLabel label = new JLabel(texte);
-        label.setFont(new Font("Arial", Font.BOLD, 24));
-
-        panel.add(label);
-
-        return panel;
+    private void afficherPanel(String nomPanel) {
+        cardLayout.show(panelCentre, nomPanel);
     }
 }
