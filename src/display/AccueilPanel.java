@@ -20,9 +20,9 @@ public class AccueilPanel extends JPanel {
         setLayout(new BorderLayout(20, 20));
         setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // ==========================
+
         // Titre
-        // ==========================
+
 
         JLabel titre = new JLabel("Tableau de bord");
         titre.setFont(new Font("Arial", Font.BOLD, 28));
@@ -30,9 +30,8 @@ public class AccueilPanel extends JPanel {
 
         add(titre, BorderLayout.NORTH);
 
-        // ==========================
         // Cartes
-        // ==========================
+
 
         JPanel cartes = new JPanel(new GridLayout(1, 3, 20, 20));
 
@@ -50,24 +49,27 @@ public class AccueilPanel extends JPanel {
 
         add(cartes, BorderLayout.CENTER);
 
-        // ==========================
+
         // Informations
-        // ==========================
 
         JTextArea infos = new JTextArea();
 
         infos.setEditable(false);
-        infos.setFont(new Font("Arial", Font.PLAIN, 15));
-        infos.setBorder(new TitledBorder("Informations"));
+        infos.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+
+        infos.setBorder(BorderFactory.createCompoundBorder(
+                new javax.swing.border.LineBorder(Color.pink, 1, true),
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)
+        ));
 
         infos.setText(
-                "Bienvenue dans votre application de gestion des dépenses.\n\n" +
-                        "Utilisez le menu de gauche pour :\n\n" +
-                        "• Ajouter une dépense\n" +
-                        "• Gérer les catégories\n" +
-                        "• Gérer les moyens de paiement\n" +
-                        "• Gérer votre budget\n" +
-                        "• Ajouter des revenus"
+                        "  Bienvenue dans votre application de gestion des dépenses.\n\n" +
+                        "  Utilisez le menu de gauche pour :\n\n" +
+                        " •  Ajouter une dépense\n" +
+                        " •  Gérer les catégories\n" +
+                        " •  Gérer les moyens de paiement\n" +
+                        " •  Gérer votre budget\n" +
+                        " •  Ajouter des revenus\n\n"
         );
 
         add(infos, BorderLayout.SOUTH);

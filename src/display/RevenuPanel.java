@@ -1,6 +1,7 @@
 package display;
 
 import Requetes.RevenuRequetes;
+import esthetique.RoundedButton;
 import model.Revenu;
 
 import javax.swing.*;
@@ -32,9 +33,8 @@ public class RevenuPanel extends JPanel {
 
         setLayout(new BorderLayout(10,10));
 
-        // ==========================
         // Formulaire
-        // ==========================
+
 
         JPanel formulaire = new JPanel(new GridBagLayout());
         formulaire.setBorder(BorderFactory.createTitledBorder("Revenu"));
@@ -78,9 +78,9 @@ public class RevenuPanel extends JPanel {
 
         add(formulaire, BorderLayout.NORTH);
 
-        // ==========================
+
         // Tableau
-        // ==========================
+
 
         modele = new DefaultTableModel();
 
@@ -93,17 +93,25 @@ public class RevenuPanel extends JPanel {
 
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // ==========================
         // Boutons
-        // ==========================
 
         JPanel panelBoutons = new JPanel(new FlowLayout());
 
-        btnAjouter = new JButton("Ajouter");
-        btnModifier = new JButton("Modifier");
-        btnSupprimer = new JButton("Supprimer");
-        btnActualiser = new JButton("Actualiser");
-        btnVider = new JButton("Vider");
+        btnAjouter = new RoundedButton("Ajouter");
+        btnAjouter.setBackground(Color.pink);
+
+        btnModifier = new RoundedButton("Modifier");
+        btnModifier.setBackground(Color.pink);
+
+        btnSupprimer = new RoundedButton("Supprimer");
+        btnSupprimer.setBackground(Color.pink);
+
+        btnActualiser = new RoundedButton("Actualiser");
+        btnActualiser.setBackground(Color.pink);
+
+        btnVider = new RoundedButton("Vider");
+        btnVider.setBackground(Color.pink);
+
 
         panelBoutons.add(btnAjouter);
         panelBoutons.add(btnModifier);
@@ -115,9 +123,9 @@ public class RevenuPanel extends JPanel {
 
         chargerTable();
 
-        // ==========================
+
         // ActionListeners
-        // ==========================
+
 
         btnAjouter.addActionListener(e -> ajouterRevenu());
 

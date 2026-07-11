@@ -3,6 +3,7 @@ package display;
 import Requetes.CategorieRequetes;
 import Requetes.DepenseRequetes;
 import Requetes.MoyenPaiementRequetes;
+import esthetique.RoundedButton;
 import model.Categorie;
 import model.Depense;
 import model.MoyenPaiement;
@@ -22,11 +23,11 @@ public class DepensePanel extends JPanel {
     private JComboBox<Categorie> cbCategorie;
     private JComboBox<MoyenPaiement> cbPaiement;
 
-    private JButton btnAjouter;
-    private JButton btnModifier;
-    private JButton btnSupprimer;
-    private JButton btnActualiser;
-    private JButton btnVider;
+    private RoundedButton btnAjouter;
+    private RoundedButton btnModifier;
+    private RoundedButton btnSupprimer;
+    private RoundedButton btnActualiser;
+    private RoundedButton btnVider;
 
     private JTable table;
     private DefaultTableModel modele;
@@ -43,9 +44,8 @@ public class DepensePanel extends JPanel {
 
         setLayout(new BorderLayout(10,10));
 
-        // ==========================
         // Formulaire
-        // ==========================
+
 
         JPanel formulaire = new JPanel(new GridBagLayout());
         formulaire.setBorder(BorderFactory.createTitledBorder("Nouvelle dépense"));
@@ -105,9 +105,7 @@ public class DepensePanel extends JPanel {
 
         add(formulaire, BorderLayout.NORTH);
 
-        // ==========================
         // Tableau
-        // ==========================
 
         modele = new DefaultTableModel();
 
@@ -122,17 +120,26 @@ public class DepensePanel extends JPanel {
 
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // ==========================
+
         // Boutons
-        // ==========================
+
 
         JPanel boutons = new JPanel(new FlowLayout());
 
-        btnAjouter = new JButton("Ajouter");
-        btnModifier = new JButton("Modifier");
-        btnSupprimer = new JButton("Supprimer");
-        btnActualiser = new JButton("Actualiser");
-        btnVider = new JButton("Vider");
+        btnAjouter = new RoundedButton("Ajouter");
+        btnAjouter.setBackground(Color.pink);
+
+        btnModifier = new RoundedButton("Modifier");
+        btnModifier.setBackground(Color.pink);
+
+        btnSupprimer = new RoundedButton("Supprimer");
+        btnSupprimer.setBackground(Color.pink);
+
+        btnActualiser = new RoundedButton("Actualiser");
+        btnActualiser.setBackground(Color.pink);
+
+        btnVider = new RoundedButton("Vider");
+        btnVider.setBackground(Color.pink);
 
         boutons.add(btnAjouter);
         boutons.add(btnModifier);
@@ -146,9 +153,8 @@ public class DepensePanel extends JPanel {
         chargerPaiements();
         chargerTable();
 
-        // ==========================
+
         // ActionListeners
-        // ==========================
 
         btnAjouter.addActionListener(e -> ajouterDepense());
 
@@ -177,9 +183,9 @@ public class DepensePanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Vider les champs
-    // ==========================
+
 
     private void viderChamps() {
 
@@ -200,9 +206,8 @@ public class DepensePanel extends JPanel {
 
     }
 
-    // ==========================
     // Charger le tableau
-    // ==========================
+
 
     private void chargerTable() {
 
@@ -225,9 +230,7 @@ public class DepensePanel extends JPanel {
 
     }
 
-    // ==========================
     // Charger les catégories
-    // ==========================
 
     private void chargerCategories() {
 
@@ -240,9 +243,9 @@ public class DepensePanel extends JPanel {
         }
     }
 
-    // ==========================
+
     // Charger les moyens de paiement
-    // ==========================
+
 
     private void chargerPaiements() {
 
@@ -255,9 +258,8 @@ public class DepensePanel extends JPanel {
         }
     }
 
-    // ==========================
+
 // Ajouter
-// ==========================
 
     private void ajouterDepense() {
 
@@ -296,9 +298,8 @@ public class DepensePanel extends JPanel {
 
     }
 
-// ==========================
+
 // Modifier
-// ==========================
 
     private void modifierDepense() {
 
@@ -347,9 +348,9 @@ public class DepensePanel extends JPanel {
 
     }
 
-// ==========================
+
 // Supprimer
-// ==========================
+
 
     private void supprimerDepense() {
 

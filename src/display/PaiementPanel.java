@@ -1,6 +1,7 @@
 package display;
 
 import Requetes.MoyenPaiementRequetes;
+import esthetique.RoundedButton;
 import model.MoyenPaiement;
 
 import javax.swing.*;
@@ -13,11 +14,11 @@ public class PaiementPanel extends JPanel {
     private JTextField txtId;
     private JTextField txtNom;
 
-    private JButton btnAjouter;
-    private JButton btnModifier;
-    private JButton btnSupprimer;
-    private JButton btnActualiser;
-    private JButton btnVider;
+    private RoundedButton btnAjouter;
+    private RoundedButton btnModifier;
+    private RoundedButton btnSupprimer;
+    private RoundedButton btnActualiser;
+    private RoundedButton btnVider;
 
     private JTable table;
     private DefaultTableModel modele;
@@ -30,9 +31,9 @@ public class PaiementPanel extends JPanel {
 
         setLayout(new BorderLayout(10,10));
 
-        // ==========================
+
         // Formulaire
-        // ==========================
+
 
         JPanel formulaire = new JPanel(new GridBagLayout());
         formulaire.setBorder(BorderFactory.createTitledBorder("Moyen de paiement"));
@@ -60,9 +61,9 @@ public class PaiementPanel extends JPanel {
 
         add(formulaire, BorderLayout.NORTH);
 
-        // ==========================
+
         // Tableau
-        // ==========================
+
 
         modele = new DefaultTableModel();
 
@@ -73,17 +74,21 @@ public class PaiementPanel extends JPanel {
 
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // ==========================
+
         // Boutons
-        // ==========================
 
         JPanel panelBoutons = new JPanel(new FlowLayout());
 
-        btnAjouter = new JButton("Ajouter");
-        btnModifier = new JButton("Modifier");
-        btnSupprimer = new JButton("Supprimer");
-        btnActualiser = new JButton("Actualiser");
-        btnVider = new JButton("Vider");
+        btnAjouter = new RoundedButton("Ajouter");
+        btnAjouter.setBackground(Color.pink);
+        btnModifier = new RoundedButton("Modifier");
+        btnModifier.setBackground(Color.pink);
+        btnSupprimer = new RoundedButton("Supprimer");
+        btnSupprimer.setBackground(Color.pink);
+        btnActualiser = new RoundedButton("Actualiser");
+        btnActualiser.setBackground(Color.pink);
+        btnVider = new RoundedButton("Vider");
+        btnVider.setBackground(Color.pink);
 
         panelBoutons.add(btnAjouter);
         panelBoutons.add(btnModifier);
@@ -95,9 +100,8 @@ public class PaiementPanel extends JPanel {
 
         chargerTable();
 
-        // ==========================
         // ActionListeners
-        // ==========================
+
 
         btnAjouter.addActionListener(e -> ajouterPaiement());
 
@@ -124,9 +128,9 @@ public class PaiementPanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Vider les champs
-    // ==========================
+
 
     private void viderChamps() {
 
@@ -158,9 +162,9 @@ public class PaiementPanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Ajouter
-    // ==========================
+
 
     private void ajouterPaiement() {
 
@@ -193,9 +197,9 @@ public class PaiementPanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Modifier
-    // ==========================
+
 
     private void modifierPaiement() {
 
@@ -229,9 +233,9 @@ public class PaiementPanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Supprimer
-    // ==========================
+
 
     private void supprimerPaiement() {
 

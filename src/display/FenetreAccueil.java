@@ -1,5 +1,7 @@
 package display;
 
+import esthetique.RoundedButton;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,31 +18,48 @@ public class FenetreAccueil extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // ==========================
+
         // Barre du haut
-        // ==========================
 
         JPanel topPanel = new JPanel();
 
         JLabel titre = new JLabel("Gestion des dépenses personnelles");
         titre.setFont(new Font("Arial", Font.BOLD, 24));
+        topPanel.setBackground(Color.pink);
 
         topPanel.add(titre);
 
-        // ==========================
         // Menu de gauche
-        // ==========================
 
         JPanel menuPanel = new JPanel();
+
         menuPanel.setLayout(new GridLayout(6, 1, 10, 10));
         menuPanel.setPreferredSize(new Dimension(220, 0));
 
-        JButton btnAccueil = new JButton("🏠 Accueil");
-        JButton btnDepenses = new JButton("💸 Dépenses");
-        JButton btnCategories = new JButton("📂 Catégories");
-        JButton btnPaiements = new JButton("💳 Paiements");
-        JButton btnBudget = new JButton("📈 Budget");
-        JButton btnRevenus = new JButton("💰 Revenus");
+        RoundedButton btnAccueil = new RoundedButton("🏠 Accueil");
+        btnAccueil.setBackground(Color.pink);
+
+
+        RoundedButton btnDepenses = new RoundedButton("💸 Dépenses");
+        btnDepenses.setBackground(Color.pink);
+
+
+        RoundedButton btnCategories = new RoundedButton("📂 Catégories");
+        btnCategories.setBackground(Color.pink);
+
+
+        RoundedButton btnPaiements = new RoundedButton("💳 Paiements");
+        btnPaiements.setBackground(Color.pink);
+
+
+        RoundedButton btnBudget = new RoundedButton("📈 Budget");
+        btnBudget.setBackground(Color.pink);
+
+
+        RoundedButton btnRevenus = new RoundedButton("💰 Revenus");
+        btnRevenus.setBackground(Color.pink);
+
+
 
         menuPanel.add(btnAccueil);
         menuPanel.add(btnDepenses);
@@ -49,9 +68,7 @@ public class FenetreAccueil extends JFrame {
         menuPanel.add(btnBudget);
         menuPanel.add(btnRevenus);
 
-        // ==========================
-        // Zone centrale
-        // ==========================
+        // Zone central
 
         cardLayout = new CardLayout();
         panelCentre = new JPanel(cardLayout);
@@ -67,9 +84,8 @@ public class FenetreAccueil extends JFrame {
         add(menuPanel, BorderLayout.WEST);
         add(panelCentre, BorderLayout.CENTER);
 
-        // ==========================
         // Navigation
-        // ==========================
+
 
         btnAccueil.addActionListener(e -> afficherPanel("Accueil"));
 

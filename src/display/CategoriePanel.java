@@ -1,6 +1,7 @@
 package display;
 
 import Requetes.CategorieRequetes;
+import esthetique.RoundedButton;
 import model.Categorie;
 
 import javax.swing.*;
@@ -14,11 +15,11 @@ public class CategoriePanel extends JPanel {
     private JTextField txtNom;
     private JTextArea txtDescription;
 
-    private JButton btnAjouter;
-    private JButton btnModifier;
-    private JButton btnSupprimer;
-    private JButton btnActualiser;
-    private JButton btnVider;
+    private RoundedButton btnAjouter;
+    private RoundedButton btnModifier;
+    private RoundedButton btnSupprimer;
+    private RoundedButton btnActualiser;
+    private RoundedButton btnVider;
 
     private JTable table;
     private DefaultTableModel modele;
@@ -31,9 +32,8 @@ public class CategoriePanel extends JPanel {
 
         setLayout(new BorderLayout(10,10));
 
-        // ==========================
+
         // Formulaire
-        // ==========================
 
         JPanel formulaire = new JPanel(new GridBagLayout());
         formulaire.setBorder(BorderFactory.createTitledBorder("Catégorie"));
@@ -72,9 +72,8 @@ public class CategoriePanel extends JPanel {
 
         add(formulaire, BorderLayout.NORTH);
 
-        // ==========================
         // Tableau
-        // ==========================
+
 
         modele = new DefaultTableModel();
 
@@ -86,17 +85,27 @@ public class CategoriePanel extends JPanel {
 
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // ==========================
+
         // Boutons
-        // ==========================
+
 
         JPanel panelBoutons = new JPanel(new FlowLayout());
 
-        btnAjouter = new JButton("Ajouter");
-        btnModifier = new JButton("Modifier");
-        btnSupprimer = new JButton("Supprimer");
-        btnActualiser = new JButton("Actualiser");
-        btnVider = new JButton("Vider");
+        btnAjouter = new RoundedButton("Ajouter");
+        btnAjouter.setBackground(Color.pink);
+
+        btnModifier = new RoundedButton("Modifier");
+        btnModifier.setBackground(Color.pink);
+
+        btnSupprimer = new RoundedButton("Supprimer");
+        btnSupprimer.setBackground(Color.pink);
+
+        btnActualiser = new RoundedButton("Actualiser");
+        btnActualiser.setBackground(Color.pink);
+
+        btnVider = new RoundedButton("Vider");
+        btnVider.setBackground(Color.pink);
+
 
         panelBoutons.add(btnAjouter);
         panelBoutons.add(btnModifier);
@@ -108,9 +117,9 @@ public class CategoriePanel extends JPanel {
 
         chargerTable();
 
-        // ==========================
+
         // ActionListeners
-        // ==========================
+
 
         btnAjouter.addActionListener(e -> ajouterCategorie());
 
@@ -138,9 +147,8 @@ public class CategoriePanel extends JPanel {
 
     }
 
-    // ==========================
     // Vider les champs
-    // ==========================
+
 
     private void viderChamps() {
 
@@ -152,9 +160,9 @@ public class CategoriePanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Charger le tableau
-    // ==========================
+
 
     private void chargerTable() {
 
@@ -174,9 +182,9 @@ public class CategoriePanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Ajouter une catégorie
-    // ==========================
+
 
     private void ajouterCategorie() {
 
@@ -208,9 +216,9 @@ public class CategoriePanel extends JPanel {
         }
     }
 
-    // ==========================
+
     // Modifier une catégorie
-    // ==========================
+
 
     private void modifierCategorie() {
 

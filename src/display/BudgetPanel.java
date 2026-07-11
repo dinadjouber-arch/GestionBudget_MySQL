@@ -1,6 +1,7 @@
 package display;
 
 import Requetes.BudgetRequetes;
+import esthetique.RoundedButton;
 import model.Budget;
 
 import javax.swing.*;
@@ -15,11 +16,11 @@ public class BudgetPanel extends JPanel {
     private JTextField txtMois;
     private JTextField txtAnnee;
 
-    private JButton btnAjouter;
-    private JButton btnModifier;
-    private JButton btnSupprimer;
-    private JButton btnActualiser;
-    private JButton btnVider;
+    private RoundedButton btnAjouter;
+    private RoundedButton btnModifier;
+    private RoundedButton btnSupprimer;
+    private RoundedButton btnActualiser;
+    private RoundedButton btnVider;
 
     private JTable table;
     private DefaultTableModel modele;
@@ -70,11 +71,20 @@ public class BudgetPanel extends JPanel {
 
         JPanel panelBoutons = new JPanel(new FlowLayout());
 
-        btnAjouter = new JButton("Ajouter");
-        btnModifier = new JButton("Modifier");
-        btnSupprimer = new JButton("Supprimer");
-        btnActualiser = new JButton("Actualiser");
-        btnVider = new JButton("Vider");
+        btnAjouter = new RoundedButton("Ajouter");
+        btnAjouter.setBackground(Color.pink);
+
+        btnModifier = new RoundedButton("Modifier");
+        btnModifier.setBackground(Color.pink);
+
+        btnSupprimer = new RoundedButton("Supprimer");
+        btnSupprimer.setBackground(Color.pink);
+
+        btnActualiser = new RoundedButton("Actualiser");
+        btnActualiser.setBackground(Color.pink);
+
+        btnVider = new RoundedButton("Vider");
+        btnVider.setBackground(Color.pink);
 
         panelBoutons.add(btnAjouter);
         panelBoutons.add(btnModifier);
@@ -86,9 +96,9 @@ public class BudgetPanel extends JPanel {
 
         chargerTable();
 
-        // ==========================
+
         // ActionListeners
-        // ==========================
+
 
         btnAjouter.addActionListener(e -> ajouterBudget());
 
@@ -132,9 +142,9 @@ public class BudgetPanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Charger le tableau
-    // ==========================
+
 
     private void chargerTable() {
 
@@ -155,9 +165,9 @@ public class BudgetPanel extends JPanel {
 
     }
 
-    // ==========================
+
     // Ajouter
-    // ==========================
+
 
     private void ajouterBudget() {
 
@@ -192,9 +202,9 @@ public class BudgetPanel extends JPanel {
         }
     }
 
-    // ==========================
+
     // Modifier
-    // ==========================
+
 
     private void modifierBudget() {
 
@@ -238,9 +248,9 @@ public class BudgetPanel extends JPanel {
         }
     }
 
-    // ==========================
+
     // Supprimer
-    // ==========================
+
 
     private void supprimerBudget() {
 
