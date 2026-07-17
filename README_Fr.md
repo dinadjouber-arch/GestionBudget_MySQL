@@ -100,7 +100,7 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 
 *Exemple de l'alerte affichée lorsque les dépenses dépassent le budget disponible.*
 
-screenshot
+<img src="images/budgetnegatif.png" alt="Accueil" width="700">
 
 ---
 
