@@ -109,7 +109,7 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 
 # Améliorations futures
 
-* Gestion des revenus.
+* Remplacer MySQL par SQLite afin de rendre l'application autonome, portable et plus simple à installer (fait dans un autre repository).
 * Filtrage des dépenses par mois.
 * Recherche de dépenses.
 * Export des données (PDF/Excel).
