@@ -47,7 +47,7 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 
 *Aperçu de l'interface principale de l'application.*
 
-screenshot
+<img src="images/accueil.png" alt="Accueil" width="700">
 ---
 
 ## Gestion du budget
