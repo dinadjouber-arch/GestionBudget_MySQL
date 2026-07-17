@@ -1,5 +1,7 @@
 # Gestionnaire de Budget
 
+<img src="images/accueil.png" alt="Aperçu de l'application" width="850">
+
 Une application de bureau développée en **Java Swing** permettant de gérer un budget personnel et de suivre ses dépenses grâce à une interface graphique intuitive connectée à une base de données **MySQL**.
 
 ---
@@ -37,6 +39,7 @@ L'application s'appuie sur une base de données relationnelle **MySQL** composé
 * `depense`
 * `categorie`
 * `moyen_paiement`
+* `revenu`
 
 Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et efficace des données.
 
