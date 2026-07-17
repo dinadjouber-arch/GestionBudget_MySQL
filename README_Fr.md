@@ -43,11 +43,13 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 ---
 
 
-## Tableau de bord
+## Tableau de bord et Statistiques
 
-*Aperçu de l'interface principale de l'application.*
+*Interface Principale avec Visualisation des dépenses et de l'utilisation du budget.*
 
 <img src="images/accueil.png" alt="Accueil" width="700">
+
+
 ---
 
 ## Gestion du budget
@@ -86,13 +88,6 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 <img src="images/paiement.png" alt="Accueil" width="700">
 
 
----
-
-## Statistiques
-
-*Visualisation des dépenses et de l'utilisation du budget.*
-
-<img src="images/accueil.png" alt="Accueil" width="700">
 
 ---
 
