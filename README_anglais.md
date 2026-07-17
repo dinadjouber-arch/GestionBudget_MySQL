@@ -109,7 +109,7 @@ These tables are linked together to ensure consistent and efficient data managem
 
 # Future Improvements
 
-* Revenue management.
+* Migrate to SQLite to make the application fully portable and easier to install (will be done in another repository soon).
 * Filter expenses by month.
 * Expense search.
 * Export data (PDF/Excel).
