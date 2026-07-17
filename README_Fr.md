@@ -54,22 +54,19 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 
 *Affichage du budget actuel et du montant restant.*
 
-screenshot
+<img src="images/budget(vide).png" alt="Accueil" width="700">
 
----
-
-## Ajout d'une dépense
-
-*Formulaire permettant d'ajouter une nouvelle dépense.*
-
-screenshot
 ---
 
 ## Liste des dépenses
+*Formulaire permettant d'ajouter une nouvelle dépense.*
+
+<img src="images/depense(vide).png" alt="Accueil" width="700">
+
 
 *Tableau affichant toutes les dépenses enregistrées.*
 
-screenshot
+<img src="images/depense.png" alt="Accueil" width="700">
 
 ---
 
@@ -77,15 +74,17 @@ screenshot
 
 *Interface permettant d'ajouter et de gérer les catégories de dépenses.*
 
- screenshot
+<img src="images/categorie(vide).png" alt="Accueil" width="700">
+<img src="images/categorie.png" alt="Accueil" width="700">
 
 ---
 
 ## Gestion des moyens de paiement
 
 *Interface permettant de gérer les différents moyens de paiement.*
+<img src="images/paiement(vide).png" alt="Accueil" width="700">
+<img src="images/paiement.png" alt="Accueil" width="700">
 
-screenshot
 
 ---
 
@@ -93,7 +92,7 @@ screenshot
 
 *Visualisation des dépenses et de l'utilisation du budget.*
 
-screenshot
+<img src="images/accueil.png" alt="Accueil" width="700">
 
 ---
 
@@ -101,7 +100,7 @@ screenshot
 
 *État de l'application lorsqu'aucune dépense n'a encore été enregistrée.*
 
-screenshot
+<img src="images/accueil(vide).png" alt="Accueil" width="700">
 
 ---
 
