@@ -61,12 +61,9 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 ---
 
 ## Liste des dépenses
-*Formulaire permettant d'ajouter une nouvelle dépense.*
+*Formulaire permettant d'ajouter une nouvelle dépense et Tableau affichant toutes les dépenses enregistrées.*
 
 <img src="images/depense(vide).png" alt="Accueil" width="700">
-
-
-*Tableau affichant toutes les dépenses enregistrées.*
 
 <img src="images/depense.png" alt="Accueil" width="700">
 
