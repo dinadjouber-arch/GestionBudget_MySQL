@@ -1,25 +1,27 @@
 # Budget Manager
 
-A Java Swing desktop application designed to help users manage their personal expenses and monitor their budget through an intuitive graphical interface connected to a MySQL database.
+<img src="images/accueil.png" alt="Application Preview" width="850">
+
+A desktop application developed in **Java Swing** that allows users to manage a personal budget and track expenses through an intuitive graphical interface connected to a **MySQL** database.
 
 ---
 
 # Features
 
-* Create and update a budget.
-*  Add new expenses.
-*  Edit existing expenses.
-*  Delete expenses.
-*  Organize expenses using categories.
-*  Manage payment methods.
-*  Display spending statistics.
-*  Calculate the remaining budget automatically.
-*  Visual warning when the budget becomes negative.
-*  Store all data in a MySQL database.
+* Create and edit a budget.
+* Add a new expense.
+* Edit an existing expense.
+* Delete an expense.
+* Organize expenses by category.
+* Manage payment methods.
+* Display expense statistics.
+* Automatically calculate the remaining budget.
+* Display a warning when the budget becomes negative.
+* Store all data in a MySQL database.
 
 ---
 
-# Technologies
+# Technologies Used
 
 * Java 17
 * Java Swing
@@ -31,91 +33,86 @@ A Java Swing desktop application designed to help users manage their personal ex
 
 # Database
 
-The application relies on a MySQL relational database composed of the following tables:
+The application is based on a **MySQL** relational database composed of the following tables:
 
 * `budget`
 * `depense`
 * `categorie`
 * `moyen_paiement`
+* `revenu`
 
 These tables are linked together to ensure consistent and efficient data management.
 
 ---
 
+## Dashboard and Statistics
 
-## Home Dashboard
+*Main dashboard displaying expense statistics and budget usage.*
 
-*Overview of the application's main interface.*
-
-screenshot 
+<img src="images/accueil.png" alt="Accueil" width="700">
 
 ---
 
 ## Budget Management
 
-*Screen displaying the current budget and remaining amount.*
+*Displays the current budget and the remaining available amount.*
 
-screenshot 
+<img src="images/budget(vide).png" alt="Accueil" width="700">
+
 ---
 
-## Add an Expense
+## Expense Management
 
-*Form used to add a new expense.*
-screenshot 
----
+*Form for adding a new expense and a table displaying all recorded expenses.*
 
-## Expense List
+<img src="images/depense(vide).png" alt="Accueil" width="700">
 
-*Table displaying all recorded expenses.*
+<img src="images/depense.png" alt="Accueil" width="700">
 
-screenshot 
 ---
 
 ## Category Management
 
-*Interface for creating and managing expense categories.*
+*Interface for adding and managing expense categories.*
 
-screenshot 
+<img src="images/categorie(vide).png" alt="Accueil" width="700">
 
----
-
-## Payment Methods
-
-*Manage the available payment methods.*
-
-screenshot 
+<img src="images/categorie.png" alt="Accueil" width="700">
 
 ---
 
-## Statistics
+## Payment Method Management
 
-*Charts and indicators summarizing expenses and budget usage.*
+*Interface for managing different payment methods.*
 
-screenshot 
+<img src="images/paiement(vide).png" alt="Accueil" width="700">
+
+<img src="images/paiement.png" alt="Accueil" width="700">
 
 ---
 
 ## Empty Database
 
-*The application when no expenses have been recorded yet.*
+*Application state when no expenses have been recorded yet.*
 
-screenshot 
+<img src="images/accueil(vide).png" alt="Accueil" width="700">
+
 ---
 
 ## Negative Budget
 
-*Example showing the warning displayed when expenses exceed the available budget.*
+*Example of the warning displayed when expenses exceed the available budget.*
 
-screenshot 
+<img src="images/budgetnegatif.png" alt="Accueil" width="700">
 
 ---
 
 # Future Improvements
 
-* Income management.
-* Monthly filtering.
+* Revenue management.
+* Filter expenses by month.
 * Expense search.
-* Data export (PDF/Excel).
+* Export data (PDF/Excel).
 * User authentication.
 * Dark mode.
 
@@ -126,12 +123,12 @@ screenshot
 1. Clone the repository.
 2. Create the MySQL database.
 3. Import the SQL script.
-4. Configure the database connection.
+4. Configure the database connection settings.
 5. Run the project.
 
 ---
 
 # Author
 
-Developed by **Pinguin** as a university project to practice Java programming, object-oriented design, Swing GUI development, JDBC, and MySQL database management.
+Developed by **DJOUBER Dina** as a university project to practice Java programming, object-oriented design, Swing GUI development, JDBC, and MySQL database management.
 
