@@ -10,6 +10,14 @@ public class FenetreAccueil extends JFrame {
     private CardLayout cardLayout;
     private JPanel panelCentre;
 
+
+    private AccueilPanel accueilPanel;
+    private DepensePanel depensePanel;
+    private CategoriePanel categoriePanel;
+    private PaiementPanel paiementPanel;
+    private BudgetPanel budgetPanel;
+    private RevenuPanel revenuPanel;
+
     public FenetreAccueil() {
 
         setTitle("Gestion des dépenses personnelles");
@@ -73,12 +81,19 @@ public class FenetreAccueil extends JFrame {
         cardLayout = new CardLayout();
         panelCentre = new JPanel(cardLayout);
 
-        panelCentre.add(new AccueilPanel(), "Accueil");
-        panelCentre.add(new DepensePanel(), "Depenses");
-        panelCentre.add(new CategoriePanel(), "Categories");
-        panelCentre.add(new PaiementPanel(), "Paiements");
-        panelCentre.add(new BudgetPanel(), "Budget");
-        panelCentre.add(new RevenuPanel(), "Revenus");
+        accueilPanel = new AccueilPanel();
+        depensePanel = new DepensePanel();
+        categoriePanel = new CategoriePanel();
+        paiementPanel = new PaiementPanel();
+        budgetPanel = new BudgetPanel();
+        revenuPanel = new RevenuPanel();
+
+        panelCentre.add(accueilPanel, "Accueil");
+        panelCentre.add(depensePanel, "Depenses");
+        panelCentre.add(categoriePanel, "Categories");
+        panelCentre.add(paiementPanel, "Paiements");
+        panelCentre.add(budgetPanel, "Budget");
+        panelCentre.add(revenuPanel, "Revenus");
 
         add(topPanel, BorderLayout.NORTH);
         add(menuPanel, BorderLayout.WEST);
@@ -87,25 +102,25 @@ public class FenetreAccueil extends JFrame {
         // Navigation
 
 
+
         btnAccueil.addActionListener(e -> afficherPanel("Accueil"));
-
         btnDepenses.addActionListener(e -> afficherPanel("Depenses"));
-
         btnCategories.addActionListener(e -> afficherPanel("Categories"));
-
         btnPaiements.addActionListener(e -> afficherPanel("Paiements"));
-
         btnBudget.addActionListener(e -> afficherPanel("Budget"));
-
         btnRevenus.addActionListener(e -> afficherPanel("Revenus"));
 
-        // Affiche l'accueil au démarrage
         afficherPanel("Accueil");
 
         setVisible(true);
     }
 
     private void afficherPanel(String nomPanel) {
+
+        if (nomPanel.equals("Accueil")) {
+            accueilPanel.chargerStatistiques();
+        }
+
         cardLayout.show(panelCentre, nomPanel);
     }
 }

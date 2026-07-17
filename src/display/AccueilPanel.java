@@ -108,4 +108,6 @@ public class AccueilPanel extends JPanel {
         lblRevenus.setText(String.format("%.2f €", totalRevenus));
         lblBudgetRestant.setText(String.format("%.2f €", budgetRestant));
     }
+
+
 }
