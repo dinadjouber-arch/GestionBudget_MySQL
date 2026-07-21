@@ -11,7 +11,7 @@ CREATE TABLE categorie (
 
 CREATE TABLE moyen_paiement (
     id_paiement INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(50) NOT NULL
+    nom VARCHAR(50) NOT NULL UNIQUE
 );
 
 
