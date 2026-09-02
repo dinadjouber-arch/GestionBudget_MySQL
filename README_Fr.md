@@ -130,5 +130,5 @@ Ces tables sont reliées entre elles afin d'assurer une gestion cohérente et ef
 
 # Auteur
 
-Développé par **DJOUBER Dina** dans le cadre d'un projet universitaire afin de mettre en pratique la programmation Java, la programmation orientée objet, le développement d'interfaces graphiques avec Swing, JDBC et la gestion de bases de données MySQL.
+Développé par **DJOUBER Dina** afin de mettre en pratique la programmation Java, la programmation orientée objet, le développement d'interfaces graphiques avec Swing, JDBC et la gestion de bases de données MySQL.
 
