@@ -130,5 +130,5 @@ These tables are linked together to ensure consistent and efficient data managem
 
 # Author
 
-Developed by **DJOUBER Dina** as a university project to practice Java programming, object-oriented design, Swing GUI development, JDBC, and MySQL database management.
+Developed by **DJOUBER Dina** as a personal project to practice Java programming, object-oriented design, Swing GUI development, JDBC, and MySQL database management.
 
